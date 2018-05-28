@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+     <link href="../lib/ligerUI/skins/Aqua/css/ligerui-all.css" rel="stylesheet" type="text/css" /> 
+</head>
+<style>
+	body{background-color: #E5EFFE}
+
+	.title h3{color:red;}
+</style>
+<body>
+	<div class="main">
+		<div class="title"><h3>欢迎来到公交车信息管理系统首页</h1></div>
+		
+		<div id="userInfo" style="float:left">
+        </div>
+        <div id="busInfo" style="float:left">
+        </div>
+	</div>
+</body>
+   
+    <script src="../lib/jquery/jquery-1.9.0.min.js" type="text/javascript"></script>   
+    <script src="../lib/ligerUI/js/core/base.js" type="text/javascript"></script>
+    <script src="../lib/ligerUI/js/plugins/ligerPanel.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var manager;
+        $(function ()
+        {
+            $("#userInfo").ligerPanel({
+                title: '用户信息',
+                content: '<div></div>'
+            });
+
+             $("#busInfo").ligerPanel({
+                title: '车辆信息',
+                content: '<div>232454</div>'
+            });
+           
+        }); 
+    </script>
+</html>
