@@ -11,18 +11,28 @@
 
     <script type="text/javascript">
         $(function () {
-            $("#maingrid4").ligerGrid({
-                checkbox: true,
-                columns: [
-                { display: '主键', name: 'CustomerID', align: 'left', width: 120 },
-                { display: '公司名', name: 'CompanyName', minWidth: 60 },
-                { display: '联系名', name: 'ContactName', width: 50,align:'left' }, { display: '联系名', name: 'ContactName', minWidth: 140 }, { display: '联系名', name: 'ContactName', minWidth: 140 }, { display: '联系名', name: 'ContactName', minWidth: 140 }, { display: '联系名', name: 'ContactName', minWidth: 140 },
-                { display: '城市', name: 'City' }
-                ], pageSize:30,
-                data:CustomersData,
-                width: '100%',height:'97%'
+            $.ajax({
+			url:'http://localhost:8080/BusInfoSystem/user/getListUser',
+			type:'GET',
+			dataType:'json',
+			success:function(res){
+			console.log(res.data);
+			 $("#maingrid4").ligerGrid({
+	                checkbox: true,
+	                columns: [
+	                { display: '序号', name: 'ID', align: 'left', width: 120 },
+	                { display: '用户名', name: 'userName', width: 60 },
+	                { display: '密码', name: 'passWord', width: 50,align:'left' }
+	                ], pageSize:30,
+	                data:res.data,
+	                width: '100%',height:'97%'
             });
             $("#pageloading").hide(); 
+			},
+			error:function(){
+				
+			}
+})
         });
 
     </script>
