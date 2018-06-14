@@ -1,0 +1,153 @@
+   <title>用户编辑</title>     
+   <link href="../lib/ligerUI/skins/Aqua/css/ligerui-all.css" rel="stylesheet" type="text/css">
+   <link href="../lib/ligerUI/skins/Gray2014/css/all.css" rel="stylesheet">
+   <script src="../lib/jquery/jquery-1.9.0.min.js" type="text/javascript"></script>
+   <script src="../lib/ligerUI/js/ligerui.all.js"></script>
+   <script src="../lib/jquery-validation/jquery.validate.min.js"></script>
+   <script src="../lib/jquery-validation/jquery.metadata.js"></script>
+   <script src="../lib/jquery-validation/messages_cn.js"></script>
+   <style type="text/css">
+       td {
+           padding: 5px;
+           font-size: 8px;
+       }
+   </style>
+   <body>
+       <table>
+            
+           <tbody>
+           <tr>
+               <td>
+                   <label for="userName">用户名：</label>
+               </td>
+               <td>
+                   <div class="l-text" style="width: 178px;"><input id="userName" name="userName" class="ui-textbox l-text-field" validate="{required:true}" style="width: 174px;" ligeruiid="userName" type="text"><div class="l-text-l"></div><div class="l-text-r"></div></div>
+               </td>
+                <td>
+                   <label for="passWord">密码：</label>
+               </td>
+               <td>
+                   <div class="l-text" style="width: 178px;"><input id="passWord" name="passWord" class="ui-textbox l-text-field" validate="{required:true}" style="width: 174px;" ligeruiid="passWord" type="text"><div class="l-text-l"></div><div class="l-text-r"></div></div>
+               </td>
+           </tr>
+    		 <tr>
+               <td>
+                   <label for="name">姓名：</label>
+               </td>
+               <td>
+                   <div class="l-text" style="width: 178px;"><input id="name" name="name" class="ui-textbox l-text-field" validate="{required:true}" style="width: 174px;" ligeruiid="name" type="text"><div class="l-text-l"></div><div class="l-text-r"></div></div>
+               </td>
+                <td>
+                   <label for="age">年龄：</label>
+               </td>
+               <td>
+                   <div class="l-text" style="width: 178px;"><input id="age" name="age" class="ui-textbox l-text-field" validate="{required:true}" style="width: 174px;" ligeruiid="age" type="text"><div class="l-text-l"></div><div class="l-text-r"></div></div>
+               </td>
+           </tr>
+            <tr>
+               <td>
+                   <label for="sex">性别：</label>
+               </td>
+               <td>
+                   <div class="l-text" style="width: 178px;"><input id="sex" name="sex" class="ui-textbox l-text-field" validate="{required:true}" style="width: 174px;" ligeruiid="sex" type="text"><div class="l-text-l"></div><div class="l-text-r"></div></div>
+               </td>
+                <td>
+                   <label for="address">联系地址：</label>
+               </td>
+               <td>
+                   <div class="l-text" style="width: 178px;"><input id="address" name="address" class="ui-textbox l-text-field" validate="{required:true}" style="width: 174px;" ligeruiid="address" type="text"><div class="l-text-l"></div><div class="l-text-r"></div></div>
+               </td>
+           </tr>
+            <tr>
+               <td>
+                   <label for="phone">联系方式：</label>
+               </td>
+               <td>
+                   <div class="l-text" style="width: 178px;"><input id="phone" name="phone" class="ui-textbox l-text-field" validate="{required:true}" style="width: 174px;" ligeruiid="phone" type="text"><div class="l-text-l"></div><div class="l-text-r"></div></div>
+               </td>
+           </tr>
+
+
+       		</tbody>
+               
+       </table>
+      
+      <div style="margin:auto;width:40px;">
+                   <input value="确认" onclick="submitForm()" type="button" style="width:40px;height:28px;"> 
+      </div>
+     
+    
+   <script type="text/javascript">
+      $(function(){
+        var dialog = frameElement.dialog;
+        var row = dialog.get('data');
+        $('#userName').val(row.userName);
+        $('#passWord').val(row.passWord);
+        $('#name').val(row.name);
+        $('#age').val(row.age); 
+        $('#sex').val(row.sex);
+        $('#address').val(row.address);
+        $('#phone').val(row.phone);
+       })
+       function submitForm(){
+          var msg="";
+          var dialog = frameElement.dialog;
+          var row = dialog.get('data');
+          
+          var userID = row.userID;
+          var userName = $('#userName').val();
+          var passWord = $('#passWord').val();
+          var name = $('#name').val();
+          var age = $('#age').val();
+          var sex = $('#sex').val();
+          var address = $('#address').val();
+          var phone = $('#phone').val(); 
+
+          if(userName==""){
+            msg+="用户名不能为空！"+"</br>";
+          }
+          if(passWord==""){
+            msg+="密码不能为空！"+"</br>";
+          }
+          if(name==""){
+            msg+="姓名不能为空！"+"</br>";
+          }
+          if(age==""){
+            msg+="年龄不能为空！"+"</br>";
+          }
+          if(sex==""){
+            msg+="性别不能为空！"+"</br>";
+          }
+          if(address==""){
+            msg+="联系地址不能为空！"+"</br>";
+          }
+          if(phone==""){
+            msg+="联系方式不能为空！"+"</br>";
+          }
+  
+          if(msg!=""){
+            $.ligerDialog.error(msg); 
+          }else{
+            $.ajax({
+               type: "POST",
+               url: "http://localhost:8080/BusInfoSystem/user/editUser",
+               data:{'userID':userID,'userName':userName,'passWord':passWord,'name':name,'age':age,'sex':sex,'address':address,'phone':phone},
+               dataType: "json",
+               success: function(res){
+                           if(res.data.code==1){//编辑成功
+                            $.ligerDialog.success(res.data.msg);
+                           }else{
+                            $.ligerDialog.error(res.data.msg);
+                           }
+                        },
+               error:function(res){
+                  $.ligerDialog.error('服务器异常！');
+               }           
+            });
+          }    
+          
+      }
+   </script>
+   </body>
+    
+   
