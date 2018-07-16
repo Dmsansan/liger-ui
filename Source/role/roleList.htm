@@ -15,6 +15,21 @@
 	<script src="../lib/config/config.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(function () {
+        	function formatDateTime(inputTime) {  
+		        var date = new Date(inputTime);
+		        var y = date.getFullYear();  
+		        var m = date.getMonth() + 1;  
+		        m = m < 10 ? ('0' + m) : m;  
+		        var d = date.getDate();  
+		        d = d < 10 ? ('0' + d) : d;  
+		        var h = date.getHours();
+		        h = h < 10 ? ('0' + h) : h;
+		        var minute = date.getMinutes();
+		        var second = date.getSeconds();
+		        minute = minute < 10 ? ('0' + minute) : minute;  
+		        second = second < 10 ? ('0' + second) : second; 
+		        return y + '-' + m + '-' + d+' '+h+':'+minute+':'+second;  
+		    }
         	function itemclick(item)
 	        {
 	        	var row = manager.getSelectedRow();
@@ -63,22 +78,26 @@
             
             var manager;
             $.ajax({
-				url:API.listUser,
+				url:API.listRole,
 				type:'GET',
 				dataType:'json',
 				success:function(res){
 				manager = $("#maingrid4").ligerGrid({
 		                checkbox: true,
 		                columns: [
-		                { display: '序号', name: 'userID',  width: 50 },
-		                { display: '用户名', name: 'userName', width: 150 },
-		                { display: '密码', name: 'passWord', width: 150 },
-		                { display: '真实姓名', name: 'name', width: 150 },
-		                { display: '年龄', name: 'age', width: 150 },
-		                { display: '性别', name: 'sex', width: 150 },
-		                { display: '联系地址', name: 'address', width: 150 },
-		                { display: '联系方式', name: 'phone', width: 150 },
-		                { display: '注册日期', name: 'regTime', width: 150 },
+		                { display: '序号', name: 'roleid',  width: 50 },
+		                { display: '角色名称', name: 'rolename', width: 150 },
+		                { display: '管理范围', name: 'rangname', width: 550 },
+		                { display: '添加时间', name: 'addstamp', width: 150, render: function(row,index,value){
+		                	return formatDateTime(value);
+		                }},
+		                { display: '状态', name: 'delstaus', width: 150, render: function(row,index,value){
+		                	if(value==0){
+		                		return "未删除";
+		                	}else{
+		                		return "已删除";
+		                	}
+		                }},
 		                ], pageSize:10,
 		                data:res.data,
 		                width: '100%',height:'97%',

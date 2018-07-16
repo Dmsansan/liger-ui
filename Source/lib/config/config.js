@@ -4,4 +4,7 @@ var API = {
     listUser:baseUrl+"user/getListUser",
     deleteUser:baseUrl+"user/deleteUser",
     exportUser:baseUrl+"user/exportUser",
+
+    //角色列表
+    listRole:baseUrl+"role/getListRole",
 }
